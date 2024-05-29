@@ -9,8 +9,7 @@
                     </Link>
                 </li>
             </ul>
-
-            <Pagination :meta="posts.meta" class="mt-2"/>
+            <Pagination :meta="posts.meta" :only="['posts']" class="mt-2"/>
         </container>
     </AppLayout>
 </template>
