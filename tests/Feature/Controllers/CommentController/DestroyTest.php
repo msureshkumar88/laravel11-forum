@@ -25,3 +25,12 @@ it('prevents deleting a comment you didnt create', function () {
     \Pest\Laravel\actingAs(\App\Models\User::factory()->create())->delete(route('comments.destroy', $comment))
         ->assertForbidden();
 });
+
+it('prevents deleting a comment posted an hour ago', function () {
+    $this->freezeTime();
+    $comment = \App\Models\Comment::factory()->create();
+    $this->travel(1)->hour();
+    \Pest\Laravel\actingAs(\App\Models\User::factory()->create())->delete(route('comments.destroy', $comment))
+        ->assertForbidden();
+});
+
