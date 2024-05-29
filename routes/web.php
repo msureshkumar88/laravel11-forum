@@ -23,6 +23,7 @@ Route::middleware([
     })->name('dashboard');
 
     Route::post('posts/{post}/comments', [\App\Http\Controllers\CommentController::class, 'store'])->name('posts.comments.store');
+    Route::delete('comment/{comment}', [\App\Http\Controllers\CommentController::class, 'destroy'])->name('comments.destroy');
 
 });
 
