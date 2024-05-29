@@ -42,3 +42,8 @@ it('requires a valid body', function($value) {
     true,
     str_repeat('a', 2501)
 ]);
+
+it('requires authentication', function (){
+    \Pest\Laravel\post(route('posts.comments.store',
+        Post::factory()->create()))->assertRedirect('login');
+});
