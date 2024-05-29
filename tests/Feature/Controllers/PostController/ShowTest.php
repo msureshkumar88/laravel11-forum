@@ -20,6 +20,6 @@ it('passes comments to the view', function(){
 
     $comment = \App\Models\Comment::factory(2)->for($post)->create();
     $comment->load('user');
-    get(route('posts.show', $post))->assertHasPaginatedResource('comment', \App\Http\Resources\CommentResource::collection($comment->reverse()));
+    get(route('posts.show', $post))->assertHasPaginatedResource('comments', \App\Http\Resources\CommentResource::collection($comment->reverse()));
 
 });

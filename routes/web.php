@@ -25,7 +25,7 @@ Route::middleware([
 
 Route::get('posts', [\App\Http\Controllers\PostController::class, 'index'])->name('posts.index');
 Route::get('posts/{post}', [\App\Http\Controllers\PostController::class, 'show'])->name('posts.show');
-
+Route::post('posts/{post}/comments', [\App\Http\Controllers\CommentController::class, 'store'])->name('posts.comments.store');
 //Route::get('test', function (){
 ////    return \App\Http\Resources\UserResource::make(\App\Models\User::find(11));
 //    return [
