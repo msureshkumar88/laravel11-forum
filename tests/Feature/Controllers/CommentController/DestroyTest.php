@@ -15,6 +15,7 @@ it('can delete a comment', function () {
 });
 
 it('redirects to the post show page', function () {
+    $this->withoutExceptionHandling();
     $comment = \App\Models\Comment::factory()->create();
     \Pest\Laravel\actingAs($comment->user)->delete(route('comments.destroy', $comment))
     ->assertRedirect(route('posts.show', $comment->post_id));
