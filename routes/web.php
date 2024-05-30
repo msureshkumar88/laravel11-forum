@@ -22,12 +22,13 @@ Route::middleware([
         return Inertia::render('Dashboard');
     })->name('dashboard');
 
+    Route::resource('posts', \App\Http\Controllers\PostController::class)->only(['create', 'store']);
     Route::resource('posts.comments', \App\Http\Controllers\CommentController::class)->shallow()->only(['store', 'update', 'destroy']);
 
 });
 
-Route::get('posts', [\App\Http\Controllers\PostController::class, 'index'])->name('posts.index');
-Route::get('posts/{post}', [\App\Http\Controllers\PostController::class, 'show'])->name('posts.show');
+Route::resource('posts', \App\Http\Controllers\PostController::class)->only('index', 'show');
+
 //Route::get('test', function (){
 ////    return \App\Http\Resources\UserResource::make(\App\Models\User::find(11));
 //    return [

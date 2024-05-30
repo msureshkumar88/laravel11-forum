@@ -6,6 +6,7 @@ use App\Http\Resources\CommentResource;
 use App\Http\Resources\PostResource;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class PostController extends Controller
 {
@@ -26,7 +27,8 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        Gate::authorize('create', Post::class);
+        return inertia('Posts/Create');
     }
 
     /**
@@ -34,7 +36,19 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Gate::authorize('create', Post::class);
+        $data = $request->validate([
+            'title' => ['required', 'string', 'min:10', 'max:120'],
+            'body' => ['required', 'string', 'min:100', 'max:10000'],
+        ]);
+
+        $post = Post::create([
+            ...$data,
+            'user_id' => $request->user()->id,
+        ]);
+
+        return to_route('posts.show', $post);
+
     }
 
     /**
@@ -42,6 +56,7 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
+        Gate::authorize('view', $post);
         $post->load('user');
         return inertia('Posts/Show', [
             'post' => fn () => PostResource::make($post),
