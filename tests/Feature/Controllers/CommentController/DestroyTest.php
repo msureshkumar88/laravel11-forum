@@ -18,7 +18,7 @@ it('redirects to the post show page', function () {
     $this->withoutExceptionHandling();
     $comment = \App\Models\Comment::factory()->create();
     \Pest\Laravel\actingAs($comment->user)->delete(route('comments.destroy', $comment))
-    ->assertRedirect(route('posts.show', $comment->post_id));
+        ->assertRedirect($comment->post->showRoute());
 });
 
 it('prevents deleting a comment you didnt create', function () {
@@ -38,5 +38,5 @@ it('prevents deleting a comment posted an hour ago', function () {
 it('redirects to the post show page with page query parameter', function () {
     $comment = \App\Models\Comment::factory()->create();
     \Pest\Laravel\actingAs($comment->user)->delete(route('comments.destroy', ['comment'=>$comment, 'page' => 2]))
-        ->assertRedirect(route('posts.show', ['post'=>$comment->post_id, 'page'=>2]));
+        ->assertRedirect($comment->post->showRoute(['page' => 2]));
 });
