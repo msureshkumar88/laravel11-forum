@@ -33,6 +33,20 @@ class Post extends Model
         return Attribute::set(fn($value) => Str::title($value));
     }
 
+    public function body(): Attribute
+    {
+        return Attribute::set(fn ($value) => [
+            'body' => $value,
+            'html' => str($value)->markdown(
+                [
+                    'html_input' => 'strip',
+                    'allow_unsafe_links' => false,
+                    'max_nesting_level' => 5,
+                ]
+            )
+        ]);
+    }
+
     public function showRoute(array $parameters = [])
     {
         return route('posts.show', [$this, Str::slug($this->title), ...$parameters]);
