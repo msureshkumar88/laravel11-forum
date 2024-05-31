@@ -45,6 +45,13 @@ it('can filter to a topic', function () {
         ->assertHasPaginatedResource('posts', \App\Http\Resources\PostResource::collection($posts->reverse()));
 });
 
+it('passes topics to the view', function () {
+    $topics = Topic::factory(3)->create();
+
+    get(route('posts.index'))
+        ->assertHasResource('topics', \App\Http\Resources\TopicResource::collection($topics));
+});
+
 it('passes the selected topic to the view', function () {
     $topic = Topic::factory()->create();
 
