@@ -27,8 +27,8 @@ Route::middleware([
 
 });
 
+Route::get('posts/{topic?}',[\App\Http\Controllers\PostController::class,'index'])->name('posts.index');
 Route::get('posts/{post}/{slug}', [\App\Http\Controllers\PostController::class, 'show'])->name('posts.show');
-Route::resource('posts', \App\Http\Controllers\PostController::class)->only(['index']);
 
 //Route::get('test', function (){
 ////    return \App\Http\Resources\UserResource::make(\App\Models\User::find(11));
