@@ -10,7 +10,7 @@ it('Can show a Post', function () {
 
 it('passes a post to the view', function () {
     $post = \App\Models\Post::factory()->create();
-    $post->load('user');
+    $post->load('user', 'topic');
     get($post->showRoute())->assertHasResource('post', \App\Http\Resources\PostResource::make($post));
 });
 
