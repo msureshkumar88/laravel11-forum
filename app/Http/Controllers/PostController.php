@@ -19,7 +19,7 @@ class PostController extends Controller
 //        ray()->showQueries();
 
         return inertia('Posts/Index', [
-            'posts' => PostResource::collection(Post::with("user")->latest()->latest('id')->paginate()),
+            'posts' => PostResource::collection(Post::with(["user" , 'topic'])->latest()->latest('id')->paginate()),
         ]);
     }
 
